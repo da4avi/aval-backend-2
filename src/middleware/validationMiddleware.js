@@ -28,7 +28,7 @@ class Middleware {
                 error: "Insira os dados corretamente."
             })
         } 
-        const userId = await UserController.buscarPorId(id);
+        const userId = await UserController.buscarPorId(autorId);
         if(!userId) {
             return res.status(404).send({ error: "Insira um ID existente." });
         }

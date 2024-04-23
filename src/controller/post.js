@@ -67,4 +67,4 @@ class PostController {
     }
 }
 
-module.exports = PostController;
+module.exports = new PostController();
