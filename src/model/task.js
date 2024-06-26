@@ -1,9 +1,9 @@
 const database = require('../config/database');
-const User = require('./user');
+const Project = require('./project');
 
-class Post {
+class Task {
     constructor() {
-        this.model = database.define('posts', {
+        this.model = database.define('tasks', {
             id: {
                 type: database.Sequelize.INTEGER,
                 primaryKey: true,
@@ -15,11 +15,14 @@ class Post {
             conteudo: {
                 type: database.Sequelize.STRING
             },
-            autorId: {
+            status: {
+                type: database.Sequelize.STRING
+            },
+            projetoId: {
                 type: database.Sequelize.INTEGER,
                 foreignKey: true,
                 references: {
-                  model: User,
+                  model: Project,
                   key: 'id'  
                 }
             }
@@ -27,4 +30,4 @@ class Post {
     }
 }
 
-module.exports = (new Post).model;
+module.exports = (new Project).model;

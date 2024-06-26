@@ -1,7 +1,7 @@
-const Post = require('../model/post');
+const Project = require('../model/project');
 
-class PostController {
-    async criarPost(titulo, conteudo, autorId) {
+class ProjectController {
+    async criarProject(titulo, conteudo, autorId) {
         if (
             titulo === undefined
             || conteudo === undefined
@@ -11,10 +11,10 @@ class PostController {
         }
 
         // INSERT INTO users (nome, email, senha) VALUES (nome, email, senha);
-        const post = await Post
+        const project = await Project
             .create({ titulo, conteudo, autorId });
 
-        return post;
+        return project;
     }
 
     async buscarPorId(id) {
@@ -22,16 +22,16 @@ class PostController {
             throw new Error('Id é obrigatório');
         }
 
-        const post = await Post.findByPk(id);
+        const project = await Project.findByPk(id);
 
-        if (!post) {
-            throw new Error('Post não encontrado');
+        if (!Project) {
+            throw new Error('Project não encontrado');
         }
 
-        return post;
+        return project;
     }
 
-    async alterarPost(id, titulo, conteudo, autorId) {
+    async alterarProject(id, titulo, conteudo, autorId) {
         if (
             id === undefined
             || titulo === undefined
@@ -41,30 +41,30 @@ class PostController {
             throw new Error('Id, titulo, conteudo e autorId são obrigatórios');
         }
 
-        const post = await this.buscarPorId(id);
+        const project = await this.buscarPorId(id);
 
-        post.titulo = titulo;
-        post.conteudo = conteudo;
+        Project.titulo = titulo;
+        Project.conteudo = conteudo;
         cidade.autorId = autorId;
 
         cidade.save();
 
-        return post;
+        return project;
     }
 
-    async deletarPost(id) {
+    async deletarProject(id) {
         if (id === undefined) {
             throw new Error('Id é obrigatório');
         }
 
-        const post = await this.buscarPorId(id);
+        const project = await this.buscarPorId(id);
 
-        post.destroy();
+        Project.destroy();
     }
 
-    async listarPosts() {
-        return Post.findAll();
+    async listarProjects() {
+        return project.findAll();
     }
 }
 
-module.exports = new PostController();
+module.exports = new ProjectController();

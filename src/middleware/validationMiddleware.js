@@ -1,5 +1,5 @@
 const UserController = require('../controller/user');
-const PostController = require('../controller/post');
+const ProjectController = require('../controller/project');
 
 class Middleware {
     
@@ -17,7 +17,7 @@ class Middleware {
         next();
     }
 
-    async validarPost(req, res, next) {
+    async validarProject(req, res, next) {
         const {titulo, conteudo, autorId} = req.body;
         if (!titulo || !conteudo || !autorId) {
             return res.status(400).json({
@@ -34,7 +34,7 @@ class Middleware {
         }
         next();
     }
-
+    
     async validarUserId(req, res, next) {
         const {id} = req.params;
         if (!id || isNaN(id)) {
@@ -49,15 +49,15 @@ class Middleware {
         next();
     }
 
-    async validarPostId(req, res, next) {
+    async validarProjectId(req, res, next) {
         const {id} = req.params;
         if (!id || isNaN(id)) {
             return res.status(400).json({
                 error: "Insira os dados corretamente."
             })
         }
-        const postId= await PostController.buscarPorId(id);
-        if(!postId) {
+        const ProjectId= await ProjectController.buscarPorId(id);
+        if(!ProjectId) {
             return res.status(404).send({ error: "Insira um ID existente." });
         }
         next();

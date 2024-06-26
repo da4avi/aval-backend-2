@@ -1,14 +1,12 @@
-const PostController = require('../controller/post');
+const ProjectController = require('../controller/project');
 
 class PostApi {
     async criarPost(req, res) {
-        const titulo = req.body.titulo
-        const conteudo = req.body.conteudo;
-        const autorId = req.body.autorId;
+        const { titulo, conteudo, autorId } = req.body;
 
         try {
-            const post = await PostController.criarPost(titulo, conteudo, autorId);
-            return res.status(201).send(post);
+            const project = await PostController.criarPost(titulo, conteudo, autorId);
+            return res.status(201).send(project);
         } catch (error) {
             return res.status(400).send({ error: error.message })
         }
@@ -19,8 +17,8 @@ class PostApi {
         const { titulo, conteudo, autorId } = req.body;
 
         try {
-            const post = await PostController.alterarPost(Number(id), titulo, conteudo, autorId);
-            return res.status(200).send(post);
+            const project = await PostController.alterarPost(Number(id), titulo, conteudo, autorId);
+            return res.status(200).send(project);
         } catch (error) {
             return res.status(400).send({ error: error.message })
         }
@@ -37,11 +35,11 @@ class PostApi {
         }
     }
 
-    async listarPosts(req, res) {
+    async listarProjects(req, res) {
 
         try {
-            const posts = await PostController.listarPosts();
-            return res.status(200).send(posts);
+            const projects = await PostController.listarProjects();
+            return res.status(200).send(projects);
         } catch (error) {
             return res.status(400).send({ error: error.message })
         }

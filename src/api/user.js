@@ -2,9 +2,7 @@ const UserController = require('../controller/user');
 
 class UserApi {
     async criarUsuario(req, res) {
-        const nome = req.body.nome
-        const email = req.body.email;
-        const senha = req.body.senha;
+        const { nome, email, senha } = req.body;
 
         try {
             const user = await UserController.criarUsuario(nome, email, senha);

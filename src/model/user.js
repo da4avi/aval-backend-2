@@ -16,7 +16,7 @@ class User {
             },
             senha: {
                 type: database.Sequelize.STRING
-            }
+            },
         });
     }
 }
