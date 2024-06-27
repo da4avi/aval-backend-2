@@ -24,7 +24,7 @@ class TaskController {
 
         const task = await Task.findByPk(id);
 
-        if (!Task) {
+        if (!task) {
             throw new Error('Task não encontrada');
         }
 
@@ -43,12 +43,12 @@ class TaskController {
 
         const task = await this.buscarPorId(id);
 
-        Task.titulo = titulo;
-        Task.conteudo = conteudo;
-        Task.status = status;
-        cidade.projetoId = projetoId;
+        task.titulo = titulo;
+        task.conteudo = conteudo;
+        task.status = status;
+        task.projetoId = projetoId;
 
-        cidade.save();
+        task.save();
 
         return task;
     }
@@ -58,13 +58,13 @@ class TaskController {
             throw new Error('Id é obrigatório');
         }
 
-        const tasl = await this.buscarPorId(id);
+        const task = await this.buscarPorId(id);
 
-        Task.destroy();
+        task.destroy();
     }
 
     async listarTasks() {
-        return task.findAll();
+        return Task.findAll();
     }
 }
 

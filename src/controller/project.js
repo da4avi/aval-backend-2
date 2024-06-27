@@ -43,11 +43,11 @@ class ProjectController {
 
         const project = await this.buscarPorId(id);
 
-        Project.titulo = titulo;
-        Project.conteudo = conteudo;
-        cidade.autorId = autorId;
+        project.titulo = titulo;
+        project.conteudo = conteudo;
+        project.autorId = autorId;
 
-        cidade.save();
+        project.save();
 
         return project;
     }
@@ -59,11 +59,11 @@ class ProjectController {
 
         const project = await this.buscarPorId(id);
 
-        Project.destroy();
+        project.destroy();
     }
 
     async listarProjects() {
-        return project.findAll();
+        return Project.findAll();
     }
 }
 

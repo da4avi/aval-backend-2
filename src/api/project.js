@@ -1,34 +1,34 @@
 const ProjectController = require('../controller/project');
 
-class PostApi {
-    async criarPost(req, res) {
+class ProjectApi {
+    async criarProject(req, res) {
         const { titulo, conteudo, autorId } = req.body;
 
         try {
-            const project = await PostController.criarPost(titulo, conteudo, autorId);
+            const project = await ProjectController.criarProject(titulo, conteudo, autorId);
             return res.status(201).send(project);
         } catch (error) {
             return res.status(400).send({ error: error.message })
         }
     }
 
-    async alterarPost(req, res) {
+    async alterarProject(req, res) {
         const { id } = req.params;
         const { titulo, conteudo, autorId } = req.body;
 
         try {
-            const project = await PostController.alterarPost(Number(id), titulo, conteudo, autorId);
+            const project = await ProjectController.alterarProject(Number(id), titulo, conteudo, autorId);
             return res.status(200).send(project);
         } catch (error) {
             return res.status(400).send({ error: error.message })
         }
     }
 
-    async deletarPost(req, res) {
+    async deletarProject(req, res) {
         const { id } = req.params;
 
         try {
-            await PostController.deletarPost(Number(id));
+            await ProjectController.deletarProject(Number(id));
             return res.status(204).send();
         } catch (error) {
             return res.status(400).send({ error: error.message })
@@ -38,7 +38,7 @@ class PostApi {
     async listarProjects(req, res) {
 
         try {
-            const projects = await PostController.listarProjects();
+            const projects = await ProjectController.listarProjects();
             return res.status(200).send(projects);
         } catch (error) {
             return res.status(400).send({ error: error.message })
@@ -46,4 +46,4 @@ class PostApi {
     }
 }
 
-module.exports = PostApi;
+module.exports = ProjectApi;

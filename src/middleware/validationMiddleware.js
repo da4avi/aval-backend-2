@@ -34,6 +34,24 @@ class Middleware {
         }
         next();
     }
+
+    async validarTask(req, res, next) {
+        const {titulo, conteudo, status, projetoId} = req.body;
+        if (!titulo || !conteudo || !status || !projetoId) {
+            return res.status(400).json({
+                error: "Insira os dados corretamente."
+            })
+        } else if (typeof titulo !== 'string' || typeof conteudo !== 'string' || typeof status !== 'string' || typeof projetoId !== 'number') {
+            return res.status(400).json({
+                error: "Insira os dados corretamente."
+            })
+        } 
+        const projectId = await ProjectController.buscarPorId(projetoId);
+        if(!projectId) {
+            return res.status(404).send({ error: "Insira um ID existente." });
+        }
+        next();
+    }
     
     async validarUserId(req, res, next) {
         const {id} = req.params;
@@ -58,6 +76,20 @@ class Middleware {
         }
         const ProjectId= await ProjectController.buscarPorId(id);
         if(!ProjectId) {
+            return res.status(404).send({ error: "Insira um ID existente." });
+        }
+        next();
+    }
+
+    async validarTaskId(req, res, next) {
+        const {id} = req.params;
+        if (!id || isNaN(id)) {
+            return res.status(400).json({
+                error: "Insira os dados corretamente."
+            })
+        }
+        const TaskId= await TaskController.buscarPorId(id);
+        if(!TaskId) {
             return res.status(404).send({ error: "Insira um ID existente." });
         }
         next();

@@ -1,6 +1,7 @@
 const express = require('express');
 const UserApi = require('./api/user');
-const PostApi = require('./api/post')
+const ProjectApi = require('./api/project')
+const TaskApi = require('./api/task')
 const database = require('./config/database');
 const Middleware = require('./middleware/validationMiddleware')
 
@@ -12,7 +13,8 @@ app.get('/', (req, res) => {
 })
 
 const userApi = new UserApi();
-const postApi = new PostApi();
+const projectApi = new ProjectApi();
+const taskApi = new TaskApi();
 const middleware = new Middleware();
 
 //usuario
@@ -21,19 +23,30 @@ app.post('/users', middleware.validarUsuario, userApi.criarUsuario);
 app.put('/users/:id', middleware.validarUserId, userApi.alterarUsuario);
 app.delete('/users/:id', middleware.validarUserId, userApi.deletarUsuario);
 
-//posts
-app.get('/posts', postApi.listarPosts);
-app.post('/posts', middleware.validarPost, postApi.criarPost);
-app.put('/posts/:id', middleware.validarPostId, postApi.alterarPost);
-app.delete('/posts/:id', middleware.validarPostId, postApi.deletarPost);
+//project
+app.get('/projects', projectApi.listarProjects);
+app.post('/projects', middleware.validarProject, projectApi.criarProject);
+app.put('/projects/:id', middleware.validarProjectId, projectApi.alterarProject);
+app.delete('/projects/:id', middleware.validarProjectId, projectApi.deletarProject);
 
-database.sync({ force: true })
+//task
+app.get('/tasks', taskApi.listarTasks);
+app.post('/tasks', middleware.validarTask, taskApi.criarTask);
+app.put('/tasks/:id', middleware.validarTaskId, taskApi.alterarTask);
+app.delete('/tasks/:id', middleware.validarTaskId, taskApi.deletarTask);
+
+const PORT = 3000;
+
+database.sync({ force: false })
     .then(() => {
-        app.listen(3000, () => {
-            console.log('Server is running on port 3000')
-        })
+        if (process.env.NODE_ENV !== 'test') {
+            app.listen(PORT, () => {
+              console.log(`Servidor rodando na porta ${PORT}`);
+            });
+          }
     })
     .catch((error) => {
         console.error('Error connecting to the database', error);
     });
 
+module.exports = app;

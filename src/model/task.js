@@ -30,4 +30,4 @@ class Task {
     }
 }
 
-module.exports = (new Project).model;
+module.exports = (new Task).model;

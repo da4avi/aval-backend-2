@@ -1,49 +1,49 @@
 const TaskController = require('../controller/task');
 
-class PostApi {
-    async criarPost(req, res) {
-        const { titulo, conteudo, autorId } = req.body;
+class TaskApi {
+    async criarTask(req, res) {
+        const { titulo, conteudo, status, projetoId } = req.body;
 
         try {
-            const project = await PostController.criarPost(titulo, conteudo, autorId);
-            return res.status(201).send(project);
+            const task = await TaskController.criarTask(titulo, conteudo, status, projetoId);
+            return res.status(201).send(task);
         } catch (error) {
             return res.status(400).send({ error: error.message })
         }
     }
 
-    async alterarPost(req, res) {
+    async alterarTask(req, res) {
         const { id } = req.params;
-        const { titulo, conteudo, autorId } = req.body;
+        const { titulo, conteudo, status, projetoId } = req.body;
 
         try {
-            const project = await PostController.alterarPost(Number(id), titulo, conteudo, autorId);
-            return res.status(200).send(project);
+            const task = await TaskController.alterarTask(Number(id), titulo, conteudo, status, projetoId);
+            return res.status(200).send(task);
         } catch (error) {
             return res.status(400).send({ error: error.message })
         }
     }
 
-    async deletarPost(req, res) {
+    async deletarTask(req, res) {
         const { id } = req.params;
 
         try {
-            await PostController.deletarPost(Number(id));
+            await TaskController.deletarTask(Number(id));
             return res.status(204).send();
         } catch (error) {
             return res.status(400).send({ error: error.message })
         }
     }
 
-    async listarProjects(req, res) {
+    async listarTasks(req, res) {
 
         try {
-            const projects = await PostController.listarProjects();
-            return res.status(200).send(projects);
+            const tasks = await TaskController.listarTasks();
+            return res.status(200).send(tasks);
         } catch (error) {
             return res.status(400).send({ error: error.message })
         }
     }
 }
 
-module.exports = PostApi;
+module.exports = TaskApi;
