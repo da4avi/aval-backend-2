@@ -5,15 +5,23 @@ describe('Testes da API task', () => {
 
     it('Criar uma tarefa', async () => {
         const usuario = await request(app)
-            .post('/users')
+            .post('/users/registro')
             .send({ nome: "davi", email: "davi", senha: "1" });
+
+        const usuarioLogado = await request(app)
+            .post('/users/login')
+            .send({ email: "davi", senha: "1" });
+
+        const token = usuarioLogado.body.token;
 
         const projeto = await request(app)
             .post('/projects')
+            .set('authorization', token)
             .send({ titulo: "davi", conteudo: "davi", autorId: usuario.body.id });
 
         const response = await request(app)
             .post('/tasks')
+            .set('authorization', token)
             .send({ titulo: "davi", conteudo: "davi", status: "davi", projetoId: projeto.body.id });
 
         expect(response.statusCode).toBe(201);

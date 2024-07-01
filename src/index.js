@@ -16,7 +16,7 @@ app.get('/', (req, res) => {
 })
 
 app.post('/users/registro', middleware.validarUsuario, userApi.criarUsuario)
-app.post('/users/login', userApi.logarUsuario)
+app.post('/users/login', middleware.validarLogin, userApi.logarUsuario)
 
 app.use(userApi.validarToken)
 

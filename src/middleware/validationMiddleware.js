@@ -101,6 +101,21 @@ class Middleware {
         }
         next();
     }
+
+    async validarLogin(req, res, next) {
+        const {email, senha} = req.body;
+    
+        if (!email || !senha) {
+            return res.status(400).json({
+                error: "Insira os dados corretamente."
+            })
+        } else if (typeof email !== 'string' || typeof senha !== 'string') {
+            return res.status(400).json({
+                error: "Insira os dados corretamente."
+            })
+        } 
+        next();
+    }
 }
 
 module.exports = Middleware;

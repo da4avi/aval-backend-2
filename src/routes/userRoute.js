@@ -7,7 +7,7 @@ const middleware = new Middleware();
 const router = express.Router()
 
 router.get('/', userApi.listarUsuario);
-router.put('/:id', middleware.validarUserId, userApi.alterarUsuario);
+router.put('/:id', middleware.validarUsuario, middleware.validarUserId, userApi.alterarUsuario);
 router.delete('/:id', middleware.validarUserId, userApi.deletarUsuario);
 
 module.exports = router;
