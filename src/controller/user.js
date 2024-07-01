@@ -1,20 +1,17 @@
 const User = require('../model/user');
+const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken');
+
+const pulo = 10
+const senhaJwt = "davi"
 
 class UserController {
     async criarUsuario(nome, email, senha) {
-        if (
-            nome === undefined
-            || email === undefined
-            || senha === undefined
-        ) {
-            throw new Error('Nome, email e senha são obrigatórios');
-        }
+        const senhaCripto = await bcrypt.hash(senha, pulo)
 
-        // INSERT INTO users (nome, email, senha) VALUES (nome, email, senha);
-        const user = await User
-            .create({ nome, email, senha });
+        const user = await User.create({ nome, email, senha: senhaCripto });
 
-        return user;
+        return user;    
     }
 
     async buscarPorId(id) {
@@ -43,10 +40,12 @@ class UserController {
 
         const user = await this.buscarPorId(id);
 
+        const senhaCripto = await bcrypt.hash(senha, pulo)
+
         user.nome = nome;
         user.email = email;
-        user.senha = senha;
-        // UPDATE users SET nome = nome, email = email, senha = senha WHERE id = id;
+        user.senha = senhaCripto;
+
         user.save();
 
         return user;
@@ -64,6 +63,22 @@ class UserController {
 
     async listarUsuarios() {
         return User.findAll();
+    }
+
+    async logarUsuario(email, senha) {
+        const user = await User.findOne({ where: { email }});
+
+        const senhaVal = await bcrypt.compare(senha, user.senha);
+
+        if (!senhaVal) {
+            throw new Error('Email ou senha inválidos');
+        }
+
+        return jwt.sign({ id: user.id }, senhaJwt, { expiresIn: '1h' });
+    }
+
+    async validarToken(token) {
+            await jwt.verify(token, senhaJwt);
     }
 }
 

@@ -44,6 +44,27 @@ class UserApi {
             return res.status(400).send({ error: error.message })
         }
     }
+
+    async logarUsuario(req, res) {
+        const { email, senha } = req.body;
+
+        try {   
+            const token = await UserController.logarUsuario(email, senha);
+            return res.status(200).send({token});                                                         
+        } catch (error) {
+            return res.status(400).send({ error: error.message })
+        }
+    }
+
+    async validarToken(req, res, next) {
+        const token = req.headers.authorization
+        try {
+            await UserController.validarToken(token)
+            next()
+        } catch (error) {
+            return res.status(400).send({ error: error.message })
+        }
+    }
 }
 
 module.exports = UserApi;

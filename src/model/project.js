@@ -10,7 +10,13 @@ class Project {
                 autoIncrement: true
             },
             titulo: {
-                type: database.Sequelize.STRING
+                type: database.Sequelize.STRING,
+                validate: {
+                    len: {
+                        args: [1, 100],
+                        msg: "Título deve ter no máximo 100 caracteres"
+                    }
+                }
             },
             conteudo: {
                 type: database.Sequelize.STRING
@@ -19,8 +25,8 @@ class Project {
                 type: database.Sequelize.INTEGER,
                 foreignKey: true,
                 references: {
-                  model: User,
-                  key: 'id'  
+                    model: User,
+                    key: 'id'
                 }
             }
         });

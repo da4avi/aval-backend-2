@@ -1,3 +1,4 @@
+const User = require('../model/user');
 const UserController = require('../controller/user');
 const ProjectController = require('../controller/project');
 
@@ -5,11 +6,17 @@ class Middleware {
     
     async validarUsuario(req, res, next) {
         const {nome, email, senha} = req.body;
+        const emailValido = await User.findAll({where: {email: email}});
+    
         if (!nome || !email || !senha) {
             return res.status(400).json({
                 error: "Insira os dados corretamente."
             })
         } else if (typeof nome !== 'string' || typeof email !== 'string' || typeof senha !== 'string') {
+            return res.status(400).json({
+                error: "Insira os dados corretamente."
+            })
+        } else if (emailValido.length > 0) {
             return res.status(400).json({
                 error: "Insira os dados corretamente."
             })

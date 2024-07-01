@@ -12,7 +12,6 @@ describe('Testes da API project', () => {
             .post('/projects')
             .send({ titulo: "davi", conteudo: "davi", autorId: usuario.body.id });
         
-        console.log(response.body);
         expect(response.statusCode).toBe(201);
         expect(response.body.titulo).toEqual( "davi" );
         expect(response.body.conteudo).toEqual( "davi" );

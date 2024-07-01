@@ -1,10 +1,13 @@
 const express = require('express');
-const UserApi = require('./api/user');
-const ProjectApi = require('./api/project')
-const TaskApi = require('./api/task')
 const database = require('./config/database');
+const UserRoute = require('../src/routes/userRoute')
+const UserApi = require('../src/api/user')
+const ProjectRoute = require('../src/routes/projectRoute')
+const TaskRoute = require('../src/routes/taskRoute')
 const Middleware = require('./middleware/validationMiddleware')
 
+const userApi = new UserApi();
+const middleware = new Middleware();
 const app = express()
 app.use(express.json())
 
@@ -12,32 +15,18 @@ app.get('/', (req, res) => {
     res.send({ response: 'Hello World!' });
 })
 
-const userApi = new UserApi();
-const projectApi = new ProjectApi();
-const taskApi = new TaskApi();
-const middleware = new Middleware();
+app.post('/users/registro', middleware.validarUsuario, userApi.criarUsuario)
+app.post('/users/login', userApi.logarUsuario)
 
-//usuario
-app.get('/users', userApi.listarUsuario);
-app.post('/users', middleware.validarUsuario, userApi.criarUsuario);
-app.put('/users/:id', middleware.validarUserId, userApi.alterarUsuario);
-app.delete('/users/:id', middleware.validarUserId, userApi.deletarUsuario);
+app.use(userApi.validarToken)
 
-//project
-app.get('/projects', projectApi.listarProjects);
-app.post('/projects', middleware.validarProject, projectApi.criarProject);
-app.put('/projects/:id', middleware.validarProjectId, projectApi.alterarProject);
-app.delete('/projects/:id', middleware.validarProjectId, projectApi.deletarProject);
-
-//task
-app.get('/tasks', taskApi.listarTasks);
-app.post('/tasks', middleware.validarTask, taskApi.criarTask);
-app.put('/tasks/:id', middleware.validarTaskId, taskApi.alterarTask);
-app.delete('/tasks/:id', middleware.validarTaskId, taskApi.deletarTask);
+app.use('/users', UserRoute)
+app.use('/projects', ProjectRoute)
+app.use('/tasks', TaskRoute)
 
 const PORT = 3000;
 
-database.sync({ force: false })
+database.sync({ force: true })
     .then(() => {
         if (process.env.NODE_ENV !== 'test') {
             app.listen(PORT, () => {

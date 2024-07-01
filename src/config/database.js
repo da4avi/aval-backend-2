@@ -7,4 +7,4 @@ const database = new Sequelize(
     { host: 'localhost', dialect: 'mysql' }
 )
 
-module.exports = database;
+module.exports = database

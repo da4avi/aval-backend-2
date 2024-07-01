@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">36% </span>
+                <span class="strong">8% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>9/25</span>
+                <span class='fraction'>2/25</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">35.29% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>6/17</span>
+                <span class='fraction'>0/17</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">40% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/5</span>
+                <span class='fraction'>0/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">36% </span>
+                <span class="strong">8% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>9/25</span>
+                <span class='fraction'>2/25</span>
             </div>
         
             
@@ -136,7 +136,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -145,24 +145,24 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -204,8 +204,8 @@
 <span class="cline-any cline-yes">3x</span></td><td class="text"><pre class="prettyprint lang-js">const Project = require('../model/project');
 &nbsp;
 class ProjectController {
-    async criarProject(titulo, conteudo, autorId) {
-        <span class="missing-if-branch" title="if path not taken" >I</span>if (
+<span class="fstat-no" title="function not covered" >    as</span>ync criarProject(titulo, conteudo, autorId) {
+<span class="cstat-no" title="statement not covered" >        if (</span>
             titulo === undefined
             || conteudo === undefined
             || autorId === undefined
@@ -214,24 +214,24 @@ class ProjectController {
         }
 &nbsp;
         // INSERT INTO users (nome, email, senha) VALUES (nome, email, senha);
-        const project = await Project
+        const project = <span class="cstat-no" title="statement not covered" >await Project</span>
             .create({ titulo, conteudo, autorId });
 &nbsp;
-        return project;
+<span class="cstat-no" title="statement not covered" >        return project;</span>
     }
 &nbsp;
-    async buscarPorId(id) {
-        <span class="missing-if-branch" title="if path not taken" >I</span>if (id === undefined) {
+<span class="fstat-no" title="function not covered" >    as</span>ync buscarPorId(id) {
+<span class="cstat-no" title="statement not covered" >        if (id === undefined) {</span>
 <span class="cstat-no" title="statement not covered" >            throw new Error('Id é obrigatório');</span>
         }
 &nbsp;
-        const project = await Project.findByPk(id);
+        const project = <span class="cstat-no" title="statement not covered" >await Project.findByPk(id);</span>
 &nbsp;
-        <span class="missing-if-branch" title="if path not taken" >I</span>if (!Project) {
+<span class="cstat-no" title="statement not covered" >        if (!Project) {</span>
 <span class="cstat-no" title="statement not covered" >            throw new Error('Project não encontrado');</span>
         }
 &nbsp;
-        return project;
+<span class="cstat-no" title="statement not covered" >        return project;</span>
     }
 &nbsp;
 <span class="fstat-no" title="function not covered" >    as</span>ync alterarProject(id, titulo, conteudo, autorId) {
@@ -277,7 +277,7 @@ module.exports = new ProjectController();</pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-06-27T00:42:01.018Z
+                at 2024-06-30T20:59:42.616Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
